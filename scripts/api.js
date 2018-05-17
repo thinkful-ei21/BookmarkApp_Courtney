@@ -2,7 +2,7 @@
 
 const api = (function() {
 
-	const API_URL; 
+	const API_URL = 'https://thinkful-list-api.herokuapp.com/courtney'; 
 
 	const fetchAllBookmarks = function() {
 
