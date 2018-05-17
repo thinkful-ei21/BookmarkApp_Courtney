@@ -3,8 +3,8 @@
 const localStore = (function() {
 
 
-	const addNewBookmark = function() {
-
+	const addNewBookmark = function(bookmark) {
+		this.localBookmarks.push(bookmark);
 	};
 
 	const deleteBookmark = function() {
