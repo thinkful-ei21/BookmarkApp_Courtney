@@ -7,20 +7,24 @@ const localStore = (function() {
 		this.localBookmarks.push(bookmark);
 	};
 
-	const deleteBookmark = function() {
-
+	const deleteBookmark = function(id) {
+		this.localBookmarks = this.localBookmarks.filter(each => each.id !== id);
 	};
 
 	const updateBookmark = function() {
-
+		// this.localBookmarks
 	};
 
 	const searchByRating = function() {
 
 	};
 
-	const findById = function() {
+	const findById = function(id) {
+		return this.localBookmarks.find(each => each.id === id);
+	};
 
+	const toggleAdding = function() {
+		this.adding = !this.adding;
 	};
 
 
@@ -33,6 +37,7 @@ const localStore = (function() {
 		deleteBookmark,
 		updateBookmark,
 		searchByRating,
-		findById
+		findById,
+		toggleAdding
 	};
 }());
