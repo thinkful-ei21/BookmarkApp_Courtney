@@ -87,9 +87,7 @@ const dom = (function() {
 	const showDescription = function() {
 		$('.bookmarkList').on('click', '.toggleDescription', event => {
 			const articleId = getIdFromElement(event.currentTarget);
-			// console.log(articleId);
 			localStore.toggleShowDetailed(articleId);
-			// $('.description').html(toggleDescriptionHtml(singleBookmarkObj));
 			render();
 		});
 	};
@@ -98,6 +96,7 @@ const dom = (function() {
 		console.log(singleBookmarkObj);
 		return singleBookmarkObj.showDetailed ? `
 			<p>${singleBookmarkObj.desc}</p>
+			<a href="${singleBookmarkObj.url}"><button class="visit">Visit Site</button></a>
 		` : '';
 	};
 
@@ -115,11 +114,10 @@ const dom = (function() {
 
 
 	const generateBookmarkHtml = function(singleBookmarkObj) {
-		// console.log(singleBookmarkObj.id);
 		return `
 			<li class="article" articleid="${singleBookmarkObj.id}">
 				<h3>${singleBookmarkObj.title}</h3>
-				<p>${singleBookmarkObj.url}</p>
+				
 				${toggleDescriptionHtml(singleBookmarkObj)}
 				<button class="toggleDescription">Show More</button>
 				<button class="deleteArticle">Delete</button>
@@ -134,9 +132,6 @@ const dom = (function() {
 
 
 	const render = function(articles = localStore.localBookmarks) {
-		
-		// let articles = localStore.localBookmarks;
-	
 		$('.bookmarkList').html(generateAllBookmarksHtml(articles));
 	};
 
