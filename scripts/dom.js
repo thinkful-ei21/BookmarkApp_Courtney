@@ -6,10 +6,12 @@ const dom = (function() {
 
 	const showAddNewForm = function() {
 		$('.toggleForm').on('click', () => {
-			console.log('i ran');
+			// console.log('i ran');
 			//append html to page
-			// console.log($('.addNew').html(addNewForm));
+			//$('.addNew').html(addNewForm);
 			localStore.toggleAdding();
+			$('.addNew').html(addNewForm);
+			hideButton();
 			render();
 		});
 	};
@@ -35,7 +37,7 @@ const dom = (function() {
 
 	const capturingNewBookmarkInfo = function() {
 		$('.addNew').submit(event => {
-			console.log('.addNew');
+			// console.log('.addNew');
 			event.preventDefault();
 			const title = $(event.currentTarget).find('.newTitle').val();
 			const url = $(event.currentTarget).find('.newUrl').val();
@@ -60,7 +62,7 @@ const dom = (function() {
 
 
 	const hideButton = function() {
-
+		localStore.adding ? $('.toggleForm').text('Close') : $('.toggleForm').text('Add');
 	};
 
 	const getIdFromElement = function(article) {
@@ -92,11 +94,11 @@ const dom = (function() {
 	};
 
 	const render = function() {
-		console.log('i ran');
+		// console.log('i ran');
 		let articles = localStore.localBookmarks;
 
-		$('.addNew').html(addNewForm());
-		$('.bookmarkList').html(generateBookmarkHtml(articles));
+		// $('.addNew').html(addNewForm());
+		$('.bookmarkList').html(generateAllBookmarksHtml(articles));
 	};
 
 	const bindEventListeners = function() {
@@ -109,3 +111,5 @@ const dom = (function() {
 		bindEventListeners
 	};
 }());
+
+
