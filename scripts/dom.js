@@ -61,7 +61,7 @@ const dom = (function() {
 				localStore.toggleAdding();
 				render();
 			}, error => {
-				$('.addNew').append('<p>Title and URL are required! Also, make sure your URL is prefixed by http(s)://</p>');
+				$('.addNew').prepend('<p>Title and URL are required! Also, make sure your URL is prefixed by http(s)://</p>');
 			});
 
 		});
