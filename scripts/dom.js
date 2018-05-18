@@ -66,10 +66,14 @@ const dom = (function() {
 	};
 
 	const getIdFromElement = function(article) {
-		return $(article).closest('.article').data('articleId');
+		return (article).closest('.article').data('articleId');
 	};
 
 	const deleteBookmarkFromDom = function() {
+		$('.bookmarkList').on('click', '.deleteArticle', event => {
+			// const currentElementId = getIdFromElement(event.currentTarget);
+			console.log((event.currentTarget).closest('.article').data("articleId"));
+		});
 
 	};
 
@@ -104,6 +108,7 @@ const dom = (function() {
 	const bindEventListeners = function() {
 		showAddNewForm();
 		capturingNewBookmarkInfo();
+		deleteBookmarkFromDom();
 	};
 
 	return {
