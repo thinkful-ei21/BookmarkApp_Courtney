@@ -45,13 +45,13 @@ const dom = (function() {
 			event.preventDefault();
 			const title = $(event.currentTarget).find('.newTitle').val();
 			const url = $(event.currentTarget).find('.newUrl').val();
-			const description = $(event.currentTarget).find('.newDescription').val();
+			const desc = $(event.currentTarget).find('.newDescription').val();
 			const rating = parseInt($(event.currentTarget).find('.newRating').find(':selected').text()[0]);
 
 			const newBookmark = {
 				title,
 				url,
-				description,
+				desc,
 				rating,
 				showDetailed: false
 			};
@@ -60,6 +60,8 @@ const dom = (function() {
 				localStore.addNewBookmark(bookmark);
 				localStore.toggleAdding();
 				render();
+			}, error => {
+				console.log('error');
 			});
 
 		});
@@ -85,26 +87,40 @@ const dom = (function() {
 	const showDescription = function() {
 		$('.bookmarkList').on('click', '.toggleDescription', event => {
 			const articleId = getIdFromElement(event.currentTarget);
-			const singleBookmarkObj = localStore.localBookmarks.filter(article => article.articleId === articleId);
-			localStore.toggleShowDetailed();
-			$('.description').html(toggleDescriptionHtml(...singleBookmarkObj));
+			// console.log(articleId);
+			localStore.toggleShowDetailed(articleId);
+			// $('.description').html(toggleDescriptionHtml(singleBookmarkObj));
 			render();
 		});
 	};
 
 	const toggleDescriptionHtml = function(singleBookmarkObj) {
-		return localStore.showDetailed ? `
-			<p>${singleBookmarkObj.description}</p>
+		console.log(singleBookmarkObj);
+		return singleBookmarkObj.showDetailed ? `
+			<p>${singleBookmarkObj.desc}</p>
 		` : '';
+	};
+
+	const filterByRating = function() {
+		$('.filterByRating').on('change', event => {
+			const value = $(event.currentTarget).val();
+			const filtered = localStore.searchByRating(value);
+			render(filtered);
+			// localStore.toggleShowRating();
+
+			// const singleRating = localStore.searchByRating();
+			// render(singleRating);
+		});
 	};
 
 
 	const generateBookmarkHtml = function(singleBookmarkObj) {
+		// console.log(singleBookmarkObj.id);
 		return `
 			<li class="article" articleid="${singleBookmarkObj.id}">
 				<h3>${singleBookmarkObj.title}</h3>
 				<p>${singleBookmarkObj.url}</p>
-				<div class="description"></div>
+				${toggleDescriptionHtml(singleBookmarkObj)}
 				<button class="toggleDescription">Show More</button>
 				<button class="deleteArticle">Delete</button>
 				<p class="rating">${singleBookmarkObj.rating}</p>
@@ -117,11 +133,10 @@ const dom = (function() {
 	};
 
 
-	const render = function() {
-		console.log('i ran');
-		let articles = localStore.localBookmarks;
-
-		// $('.addNew').html(addNewForm());
+	const render = function(articles = localStore.localBookmarks) {
+		
+		// let articles = localStore.localBookmarks;
+	
 		$('.bookmarkList').html(generateAllBookmarksHtml(articles));
 	};
 
@@ -130,6 +145,7 @@ const dom = (function() {
 		capturingNewBookmarkInfo();
 		deleteBookmarkFromDom();
 		showDescription();
+		filterByRating();
 	};
 
 	return {

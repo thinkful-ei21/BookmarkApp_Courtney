@@ -11,7 +11,7 @@ const api = (function() {
 		$.getJSON(`${API_URL}/bookmarks`, callback);
 	};
 
-	const createBookmark = function(newBookmarkObj, callback) {
+	const createBookmark = function(newBookmarkObj, callback, errorCallback) {
 		const newBookmark = JSON.stringify(newBookmarkObj);
 
 		$.ajax({
@@ -19,7 +19,8 @@ const api = (function() {
 			method: 'POST',
 			contentType: 'application/json',
 			data: newBookmark,
-			success: callback
+			success: callback,
+			error: errorCallback
 		});
 
 	};

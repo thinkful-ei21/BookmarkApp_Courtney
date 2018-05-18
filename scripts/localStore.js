@@ -14,15 +14,28 @@ const localStore = (function() {
 	};
 
 	const updateBookmark = function() {
-		// this.localBookmarks
+	
 	};
 
-	const searchByRating = function() {
+	const searchByRating = function(ratingValue) {
+		const ratings = {
+			'oneStar': 1,
+			'twoStar': 2,
+			'threeStar': 3,
+			'fourStar': 4,
+			'fiveStar': 5
+		};
 
+		return this.localBookmarks.filter(each => each.rating >= ratings[ratingValue]);
 	};
 
 	const findById = function(id) {
-		return this.localBookmarks.find(each => each.id === id);
+		// console.log(`${id}: id`);
+		const find = this.localBookmarks.find(each => {
+			// console.log(each.id, id, each.id === id);
+			return each.id === id;
+		});
+		return find;
 	};
 
 	const toggleAdding = function() {
@@ -30,12 +43,18 @@ const localStore = (function() {
 	};
 
 	const toggleShowDetailed = function(id) {
-		(this.findById(id)).showDetailed = !(this.findById(id)).showDetailed;
+		// console.log(id, this.findById);
+		this.findById(id).showDetailed = !this.findById(id).showDetailed;
+		console.log(this.findById(id).showDetailed);
 	};
+
+	// const toggleShowRating = function() {
+	// 	this.showRating = !this.showRating;
+	// };
 
 	return {
 		localBookmarks: [],
-		showRating: false,
+		// showRating: false,
 		adding: false,
 
 		addNewBookmark,
@@ -45,5 +64,6 @@ const localStore = (function() {
 		findById,
 		toggleAdding,
 		toggleShowDetailed
+		// toggleShowRating
 	};
 }());

@@ -53,6 +53,8 @@ $(document).ready(function() {
 		dom.render();
 	});
 	dom.bindEventListeners();
+	
+	// console.log(localStore.findById('cjhcbl6o5003p0kvuru2td9e7'));
 });
 
 
