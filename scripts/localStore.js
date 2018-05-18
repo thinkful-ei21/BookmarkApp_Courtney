@@ -1,5 +1,7 @@
 'use strict';
 
+/* global api */
+
 const localStore = (function() {
 
 
@@ -27,6 +29,9 @@ const localStore = (function() {
 		this.adding = !this.adding;
 	};
 
+	const toggleShowDetailed = function(id) {
+		(this.findById(id)).showDetailed = !(this.findById(id)).showDetailed;
+	};
 
 	return {
 		localBookmarks: [],
@@ -38,6 +43,7 @@ const localStore = (function() {
 		updateBookmark,
 		searchByRating,
 		findById,
-		toggleAdding
+		toggleAdding,
+		toggleShowDetailed
 	};
 }());

@@ -30,7 +30,7 @@ ul {
 	float: right;
 }
 
-button.description {
+button.toggleDescription {
 	width: 100px;
 }
 
@@ -42,5 +42,5 @@ input[type=text] {
 }
 
 .newDescription {
-	
+
 }

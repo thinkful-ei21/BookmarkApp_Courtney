@@ -53,7 +53,6 @@ $(document).ready(function() {
 		dom.render();
 	});
 	dom.bindEventListeners();
-
 });
 
 

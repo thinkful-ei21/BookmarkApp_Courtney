@@ -1,6 +1,6 @@
 'use strict';
 
-/* global localStore, $, store, */
+/* global localStore, $, localStore, api */
 
 const dom = (function() {
 
@@ -11,9 +11,13 @@ const dom = (function() {
 			//$('.addNew').html(addNewForm);
 			localStore.toggleAdding();
 			$('.addNew').html(addNewForm);
-			hideButton();
+			hideFormButton();
 			render();
 		});
+	};
+
+	const hideFormButton = function() {
+		localStore.adding ? $('.toggleForm').text('Close') : $('.toggleForm').text('Add');
 	};
 
 	const addNewForm = function() {
@@ -48,7 +52,8 @@ const dom = (function() {
 				title,
 				url,
 				description,
-				rating
+				rating,
+				showDetailed: false
 			};
 
 			api.createBookmark(newBookmark, bookmark => {
@@ -61,28 +66,46 @@ const dom = (function() {
 	};
 
 
-	const hideButton = function() {
-		localStore.adding ? $('.toggleForm').text('Close') : $('.toggleForm').text('Add');
-	};
-
 	const getIdFromElement = function(article) {
-		return (article).closest('.article').data('articleId');
+		return ($(article).closest('.article')).attr('articleid');
 	};
 
 	const deleteBookmarkFromDom = function() {
 		$('.bookmarkList').on('click', '.deleteArticle', event => {
-			// const currentElementId = getIdFromElement(event.currentTarget);
-			console.log((event.currentTarget).closest('.article').data("articleId"));
+			const currentElementId = getIdFromElement(event.currentTarget);
+			
+			api.deleteBookmark(currentElementId, () => {
+				localStore.deleteBookmark(currentElementId);
+				render();
+			});
 		});
 
 	};
 
+	const showDescription = function() {
+		$('.bookmarkList').on('click', '.toggleDescription', event => {
+			const articleId = getIdFromElement(event.currentTarget);
+			const singleBookmarkObj = localStore.localBookmarks.filter(article => article.articleId === articleId);
+			localStore.toggleShowDetailed();
+			$('.description').html(toggleDescriptionHtml(...singleBookmarkObj));
+			render();
+		});
+	};
+
+	const toggleDescriptionHtml = function(singleBookmarkObj) {
+		return localStore.showDetailed ? `
+			<p>${singleBookmarkObj.description}</p>
+		` : '';
+	};
+
+
 	const generateBookmarkHtml = function(singleBookmarkObj) {
 		return `
-			<li class="article" articleId="${singleBookmarkObj.id}">
+			<li class="article" articleid="${singleBookmarkObj.id}">
 				<h3>${singleBookmarkObj.title}</h3>
 				<p>${singleBookmarkObj.url}</p>
-				<button class="description">Show More</button>
+				<div class="description"></div>
+				<button class="toggleDescription">Show More</button>
 				<button class="deleteArticle">Delete</button>
 				<p class="rating">${singleBookmarkObj.rating}</p>
 		</li>
@@ -93,12 +116,9 @@ const dom = (function() {
 		return articles.map(each => generateBookmarkHtml(each)).join('');
 	};
 
-	const showDescription = function() {
-
-	};
 
 	const render = function() {
-		// console.log('i ran');
+		console.log('i ran');
 		let articles = localStore.localBookmarks;
 
 		// $('.addNew').html(addNewForm());
@@ -109,12 +129,14 @@ const dom = (function() {
 		showAddNewForm();
 		capturingNewBookmarkInfo();
 		deleteBookmarkFromDom();
+		showDescription();
 	};
 
 	return {
 		render,
 		bindEventListeners
 	};
+
 }());
 
 
