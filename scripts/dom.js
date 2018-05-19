@@ -5,20 +5,21 @@
 const dom = (function() {
 
 	const showAddNewForm = function() {
-		$('.toggleForm').on('click', () => {
+		$('.toggleForm').on('click', (event) => {
+			event.preventDefault();
 			// console.log('i ran');
 			//append html to page
 			//$('.addNew').html(addNewForm);
 			localStore.toggleAdding();
 			$('.addNew').html(addNewForm);
-			hideFormButton();
-			render();
+			// hideFormButton();
+			// render();
 		});
 	};
 
-	const hideFormButton = function() {
-		localStore.adding ? $('.toggleForm').text('Close') : $('.toggleForm').text('Add');
-	};
+	// const hideFormButton = function() {
+	// 	localStore.adding ? $('.toggleForm').text('Close') : $('.toggleForm').text('Add');
+	// };
 
 	const addNewForm = function() {
 		return localStore.adding ? `
@@ -41,7 +42,6 @@ const dom = (function() {
 
 	const capturingNewBookmarkInfo = function() {
 		$('.addNew').submit(event => {
-			// console.log('.addNew');
 			event.preventDefault();
 			const title = $(event.currentTarget).find('.newTitle').val();
 			const url = $(event.currentTarget).find('.newUrl').val();
@@ -96,7 +96,7 @@ const dom = (function() {
 		console.log(singleBookmarkObj);
 		return singleBookmarkObj.showDetailed ? `
 			<p>${singleBookmarkObj.desc}</p>
-			<a href="${singleBookmarkObj.url}"><button class="visit">Visit Site</button></a>
+			<a href="${singleBookmarkObj.url}"><button class="visit rounded">Visit Site</button></a>
 		` : '';
 	};
 
@@ -115,14 +115,16 @@ const dom = (function() {
 
 	const generateBookmarkHtml = function(singleBookmarkObj) {
 		return `
+		<div>
 			<li class="article" articleid="${singleBookmarkObj.id}">
 				<h3>${singleBookmarkObj.title}</h3>
 				
 				${toggleDescriptionHtml(singleBookmarkObj)}
-				<button class="toggleDescription">Show More</button>
-				<button class="deleteArticle">Delete</button>
+				<button class="toggleDescription rounded">Show More</button>
+				<button class="deleteArticle rounded">Delete</button>
 				<p class="rating">${singleBookmarkObj.rating}</p>
-		</li>
+			</li>
+		</div>
 		`;
 	};
 

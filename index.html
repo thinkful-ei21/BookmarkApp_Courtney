@@ -9,25 +9,29 @@
 	<link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
-	<header>
-		<h1>Bookmarks</h1>
-	</header>
-	<button class="toggleForm">Add</button>
-	<form class="actions">
-		<select class="filterByRating">
-			<option value="oneStar">1 Star</option>
-			<option value="twoStar">2 Star</option>
-			<option value="threeStar">3 Star</option>
-			<option value="fourStar">4 Star</option>
-			<option value="fiveStar">5 Star</option>
-		</select>
-	</form>
+	<div class="header">
+		<header role="banner">
+			<img src="UIdesign/logo-01.svg" alt="markit logo" class="logo">
+			<form class="actions">
+				<select class="filterByRating filter">
+					<option value="oneStar">1 Star</option>
+					<option value="twoStar">2 Star</option>
+					<option value="threeStar">3 Star</option>
+					<option value="fourStar">4 Star</option>
+					<option value="fiveStar">5 Star</option>
+				</select>
+				<button class="toggleForm addButton"><img src="UIdesign/add-02.svg"></button>
+			</form>
+		</header>
+	</div>
 	<form class="addNew"></form>
-	<ul class="bookmarkList"></ul>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="scripts/api.js"></script>
-	<script type="text/javascript" src="scripts/localStore.js"></script>
-	<script type="text/javascript" src="scripts/dom.js"></script>
-	<script type="text/javascript" src="scripts/index.js"></script>
+	<main role="main" class="articleBody">
+		<ul class="bookmarkList articles"></ul>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="scripts/api.js"></script>
+		<script type="text/javascript" src="scripts/localStore.js"></script>
+		<script type="text/javascript" src="scripts/dom.js"></script>
+		<script type="text/javascript" src="scripts/index.js"></script>
+	</main>
 </body>
 </html>
