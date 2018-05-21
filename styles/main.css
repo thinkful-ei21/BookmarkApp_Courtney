@@ -22,16 +22,42 @@ form.addNew {
 	margin: 130px 10% 15px 10%;
 }
 
-/*form.addNew input {
-	display: inline;
+form.addNew input {
+	/*display: inline-block;*/
+
 }
 
 form.addNew label {
 	display: inline-block;
-}*/
+	text-align: right;
+	width: 25%;
+}
+
+.newRating {
+	display: inline-block;
+	margin-left: 27%;
+	margin-top: 10px;
+}
+
+input.submitNew {
+	display: inline-block;
+	float: right;
+	margin-right: 25%;
+	margin-top: 15px;
+	background-color: #e5e338;
+	border-radius: 20px;
+	border: none;
+	width: 150px;
+	height: 30px;
+}
 
 form.actions {
 	float: right;
+}
+
+.formErrorMessage {
+	text-align: center;
+	margin-bottom: 25px;
 }
 
 main.articleBody {
@@ -47,6 +73,10 @@ button.addButton {
 select.filter {
 	position: relative;
 	top: -15px;
+}
+
+select.filter,
+select.newRating {
 	border: none;
 	background-color: white;
 	width: 120px;
@@ -96,11 +126,13 @@ button.visit {
 	width: 100px;
 }
 
-input[type=text] {
-	display: block;
+form input[type=text] {
+	/*display: block;*/
 	width: 50%;
-	height: 20px;
+	height: 30px;
 	padding: 5px;
+	margin: 0 0 15px 8px;
+	border: 2px solid black;
 }
 
 form p {

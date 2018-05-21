@@ -36,7 +36,7 @@ const dom = (function() {
 				<option value="twoStar">2 Star</option>
 				<option value="oneStar">1 Star</option>
 			</select>
-			<input type="submit" value="Submit"/>
+			<input type="submit" value="Submit" class="submitNew"/>
 		` : '';
 	};
 
@@ -61,7 +61,7 @@ const dom = (function() {
 				localStore.toggleAdding();
 				render();
 			}, error => {
-				$('.addNew').prepend('<p>Title and URL are required! Also, make sure your URL is prefixed by http(s)://</p>');
+				$('.addNew').prepend('<p class="formErrorMessage">Title and URL are required! Also, make sure your URL is prefixed by http(s)://</p>');
 			});
 
 		});
